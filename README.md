@@ -1,0 +1,1 @@
+Set your ubuntu desktop's wallpaper with xkcd random comic 
