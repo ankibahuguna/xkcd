@@ -5,11 +5,11 @@ const OS = require('os');
 const FS = require('fs');
 const URL = require('url');
 const { promisify } = require('util');
-const { exec, execFile } = require('child_process');
+const { exec } = require('child_process');
 
 const WriteFile = promisify(FS.writeFile).bind(FS);
 const Exec = promisify(exec);
-const ExecFile = promisify(execFile);
+
 
 
 const baseURl = `https://xkcd.com/${getRandomInt()}`
@@ -20,7 +20,7 @@ async function getXKCDContent() {
 }
 
 function getRandomInt() {
-    return Math.floor(Math.random() * (1900 - 1 + 1)) +1;
+    return Math.floor(Math.random() * (1950 - 1 + 1)) +1;
 }
 
 
@@ -57,10 +57,8 @@ async function downloadImage() {
         await ensureDirectory();
         const file = await downloadImage();
         const picture = `/usr/bin/gsettings set org.gnome.desktop.background picture-uri 'file:///${file}'`;
-        //console.log(picture)
-        //await Exec(`/usr/bin/touch chat-${new Date().getTime()}.js`, { cwd: '/home/ankit/projects/xkcd' });
-        await Exec(picture,{cwd : '/home/ankit/projects/xkcd', shell:'/bin/sh'})
-        await Exec('/usr/bin/gsettings set org.gnome.desktop.background picture-options "scaled"', { cwd: '/home/ankit/projects/xkcd', shell: '/bin/sh' });
+        await Exec(picture,{cwd : __dirname, shell:'/bin/sh'})
+        await Exec('/usr/bin/gsettings set org.gnome.desktop.background picture-options "scaled"', { cwd: __dirname, shell: '/bin/sh' });
     }
     catch (err) {
         //await WriteFile('test.log');
