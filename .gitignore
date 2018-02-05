@@ -1,0 +1,16 @@
+.idea
+node_modules
+npm-debug.log
+uploads
+*.*~
+*.*#
+.DS_store
+*.DS_Store
+*.idea
+/node_modules
+
+
+# Logs
+logs
+*.log
+npm-debug.log*
