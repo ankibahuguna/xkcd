@@ -57,6 +57,7 @@ async function downloadImage() {
         await ensureDirectory();
         const file = await downloadImage();
         const picture = `/usr/bin/gsettings set org.gnome.desktop.background picture-uri 'file:///${file}'`;
+        //await Exec(`touch chat-${new Date().getTime()}.js`,{cwd:__dirname});
         await Exec(picture,{cwd : __dirname, shell:'/bin/sh'})
         await Exec('/usr/bin/gsettings set org.gnome.desktop.background picture-options "scaled"', { cwd: __dirname, shell: '/bin/sh' });
     }
