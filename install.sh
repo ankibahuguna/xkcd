@@ -1,4 +1,7 @@
 #!/bin/bash
+
+type node >/dev/null 2>&1 || { echo >&2 "This program requires node. Exiting"; exit 1; }
+
 nodePath=$(which node)
 CWD=$(pwd)
 CronFile="script.sh"
