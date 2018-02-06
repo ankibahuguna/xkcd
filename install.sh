@@ -1,7 +1,9 @@
 #!/bin/bash
 nodePath=$(which node)
 CWD=$(pwd)
-CronFile="index.sh"
+CronFile="script.sh"
+
+npm install
 
 if [ -f $CronFile ] 
 then 
@@ -9,6 +11,11 @@ then
     exit 0
 fi
 
+if [ $# -eq 0 ]
+  then
+    echo "Usage : \n sh install.sh [valid cron pattern in quotes] \n Example : sh install.sh \"*/1 * * * *"\"
+    exit 1
+fi
 
 echo "#!/bin/bash
 PID=\$(pgrep gnome-session)
@@ -24,8 +31,14 @@ fi
 
 shellScript=$CWD/$CronFile
 
-echo "* * * * * $shellScript">>cron
+echo "Cron pattern $1"
 
+(crontab -l 2>/dev/null; echo "$1   $shellScript") | crontab -
 
-(crontab -l 2>/dev/null; echo "*/1 * * * * $shellScript") | crontab -
-
+if [ $? -eq 0 ]; then
+    echo OK
+else
+    rm $shellScript
+    echo fail
+    exit 1
+fi
