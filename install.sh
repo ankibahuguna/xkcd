@@ -14,11 +14,12 @@ then
     exit 0
 fi
 
-if [ $# -eq 0 ]
-  then
-    echo "Usage : \n sh install.sh [valid cron pattern in quotes] \n Example : sh install.sh \"*/1 * * * *"\"
-    exit 1
-fi
+# if [ $# -eq 0 ]
+#   then
+#     if []
+#     echo "Usage : \n sh install.sh [valid cron pattern in quotes] \n Example : sh install.sh \"*/1 * * * *"\"
+#     exit 1
+# fi
 
 echo "#!/bin/bash
 PID=\$(pgrep gnome-session)
@@ -34,9 +35,10 @@ fi
 
 shellScript=$CWD/$CronFile
 
-echo "Cron pattern $1"
+cronPattern=${1:-"*/30 * * * *"}
+echo "Cron pattern $cronPattern"
 
-(crontab -l 2>/dev/null; echo "$1   $shellScript") | crontab -
+(crontab -l 2>/dev/null; echo "$cronPattern   $shellScript") | crontab -
 
 if [ $? -eq 0 ]; then
     echo OK
